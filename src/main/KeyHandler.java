@@ -58,4 +58,11 @@ public class KeyHandler implements KeyListener {
             right = false;
         }
     }
+
+//    public void resetDirBooleans() {
+//        up = false;
+//        left = false;
+//        right = false;
+//        down = false;
+//    }
 }

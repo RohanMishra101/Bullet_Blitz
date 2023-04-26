@@ -1,5 +1,9 @@
 package main;
 
+import Entity.Player;
+
+import java.security.Key;
+
 public class Game implements Runnable {
     private GameFrame gameFrame;
     private GamePanel gamePanel;
@@ -10,15 +14,17 @@ public class Game implements Runnable {
         gamePanel = new GamePanel();
         gameFrame = new GameFrame(gamePanel);
         gamePanel.requestFocus();
+
         startGameLoop();
     }
+
     private void startGameLoop(){
         gameLoopThread = new Thread(this);
         gameLoopThread.start();
     }
 
     public void update(){
-        gamePanel.updategame();
+        gamePanel.updateGame();
     }
 
     @Override
@@ -62,5 +68,6 @@ public class Game implements Runnable {
             }
         }
     }
+
 
 }
