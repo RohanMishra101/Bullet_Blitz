@@ -34,6 +34,9 @@ public class KeyHandler implements KeyListener {
         if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT){
             right = true;
         }
+        else {
+            code = e.getKeyCode();
+        }
     }
 
     @Override

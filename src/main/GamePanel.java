@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.security.Key;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel{
     final int originalTileSize = 32; //32x32
     final int scale = 2;
     public final int tileSize = originalTileSize*scale; //64x64 tiles
@@ -14,17 +14,21 @@ public class GamePanel extends JPanel {
     final int maxScreenRow = 12;
     final int screenWidth = tileSize*maxScreenCol; //1024 tiles
     final int screenHeight = tileSize*maxScreenRow;//768px tiles
-
+    public double mouseX;
+    public double mouseY;
+    MouseHandler mouseHandler = new MouseHandler();
 
     // Creating Objects
     KeyHandler KeyH = new KeyHandler(); //Object of KeyHandler class
-    Player player = new Player(this,KeyH); //Object of Player class
+    Player player = new Player(this,KeyH,mouseHandler); //Object of Player class
 
     GamePanel(){
         setPanelSize();
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(KeyH);
+        this.addMouseListener(mouseHandler);
+        this.addMouseMotionListener(mouseHandler);
     }
     public void setPanelSize(){
         Dimension size = new Dimension(screenWidth,screenHeight);
