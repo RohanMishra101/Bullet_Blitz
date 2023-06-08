@@ -1,51 +1,112 @@
-//package Entity;
+package Entity;
+
+import main.GamePanel;
+import main.KeyHandler;
+import main.MouseHandler;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+/*
+    Here the constructor is taking the value of the provided
+    parameters but the value is automatically converted to 0 automatically need to fix it.
+ */
+public class Bullet extends Entity{
+//    int playerPosX,playerPosY;
+    int _bulletPosX;
+    int _bulletPosY;
+    int mousePosX, mousePosY;
+    int centerX,centerY;
+    double angle;
+
+
+    GamePanel gp;
+    Player player;
+    MouseHandler mouseH = new MouseHandler();
+    KeyHandler KeyH;
+
+
+    //angle
+    public Bullet(int x, int y, int centerX1,int centerY1){
+        super();
+        _bulletSpeed = 5;
+        _bulletLifeSpan = 80;
+        _bulletAge = 0;
+
+
+        this.mousePosX = x;
+        this.mousePosY = y;
+        this.centerX = centerX1;
+        this.centerY = centerY1;
+
+//        _bulletPosX = playerPosX;
+//        _bulletPosY = playerPosY;
+
+        player = new Player(gp, KeyH, mouseH);
+        this._bulletPosX = player.posX;
+        this._bulletPosY = player.posY;
+
+//        System.out.println(playerPosX + " " + playerPosY);
+
+
+    }
+    public Bullet(GamePanel gamePanel){
+        this.gp = gamePanel;
+        impBulletImg();
+//        System.out.println(_bulletPosX + " " + _bulletPosY);
+    }
+
+    private void impBulletImg() {
+        InputStream is = getClass().getResourceAsStream("/Bullet1.png");
+        try {
+            assert is != null;
+            bulletImg = ImageIO.read(is);
+        }catch (IOException e){
+            e.printStackTrace();
+        }finally {
+            try {
+                assert is != null;
+                is.close();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+//    public void update(){
+//        _bulletAge++;
+//        int bulletSpeedX = (int) (_bulletSpeed * Math.cos(angle));
+//        int bulletSpeedY = (int) (_bulletSpeed * Math.sin(angle));
 //
-//public class Bullet {
-//    private int x;
-//    private int y;
-//    private int dx;
-//    private int dy;
-//    private int speed;
-//    private int damage;
-//    private boolean active;
+////        System.out.println(angle);
 //
-//    public Bullet(int x, int y, int dx, int dy, int speed, int damage) {
-//        this.x = x;
-//        this.y = y;
-//        this.dx = dx;
-//        this.dy = dy;
-//        this.speed = speed;
-//        this.damage = damage;
-//        this.active = true;
+//
+//        _bulletPosX += bulletSpeedX;
+//        _bulletPosY += bulletSpeedY;
+//
+////        System.out.println(_bulletPosX+" "+_bulletPosY);
+//        if(_bulletAge > _bulletLifeSpan){
+//            destroy();
+//        }
 //    }
-//
-//    public void update() {
-//        x += dx * speed;
-//        y += dy * speed;
+
+    public void render(Graphics2D g2){
+//        System.out.println(_bulletPosX + " " + _bulletPosY);
+
+//        _bulletPosX = playerPosX;
+//        _bulletPosY = playerPosY;
+
+//        System.out.println(this.playerPosX + " " + this.playerPosY);
+
+        BufferedImage bulletSubImg = bulletImg.getSubimage(0,0,16,16);
+        g2.drawImage(bulletSubImg,_bulletPosX,_bulletPosY,16,16,null);
+    }
+
+//    public void destroy(){
+//        gp.bullets.remove(this);
 //    }
-//
-//    public void draw(Graphics2D g) {
-//        g.setColor(Color.YELLOW);
-//        g.fillOval(x, y, 10, 10);
-//    }
-//
-//    public int getX() {
-//        return x;
-//    }
-//
-//    public int getY() {
-//        return y;
-//    }
-//
-//    public int getDamage() {
-//        return damage;
-//    }
-//
-//    public boolean isActive() {
-//        return active;
-//    }
-//
-//    public void setActive(boolean active) {
-//        this.active = active;
-//    }
-//}
+
+}

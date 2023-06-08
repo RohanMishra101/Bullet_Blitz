@@ -14,6 +14,7 @@ public class Game implements Runnable {
         gamePanel = new GamePanel();
         gameFrame = new GameFrame(gamePanel);
         gamePanel.requestFocus();
+        gamePanel.setFocusable(true);
 
         startGameLoop();
     }

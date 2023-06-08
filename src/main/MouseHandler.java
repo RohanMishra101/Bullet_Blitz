@@ -1,26 +1,31 @@
 package main;
 
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 public class MouseHandler implements MouseMotionListener, MouseListener {
-    public int posX,posY;
+    public int X,Y;
+    public static boolean mouseClicked = false;
 
 
     @Override
     public void mouseClicked(MouseEvent e) {
+
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        if (e.getButton() == MouseEvent.BUTTON1){
+            mouseClicked = true;
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        if (e.getButton() == MouseEvent.BUTTON1){
+            mouseClicked = false;
+        }
     }
 
     @Override
@@ -40,9 +45,8 @@ public class MouseHandler implements MouseMotionListener, MouseListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        posX = e.getX();
-        posY = e.getY();
-//        System.out.println("Mouse moved to: " + posX +" "+ posY);
-
+        X = e.getX();
+        Y = e.getY();
+//        System.out.println("Mouse moved to: " + X +" "+ Y);
     }
 }

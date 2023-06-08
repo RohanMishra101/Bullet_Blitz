@@ -1,11 +1,14 @@
 package main;
 
+import Entity.Entity;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyHandler implements KeyListener {
+public class KeyHandler implements KeyListener{
 
     public Boolean up = false,left = false,right = false,down = false;
+    Entity et = new Entity();
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -42,6 +45,7 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
+//        et.motion = "still";
         if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             up = false;
         }
