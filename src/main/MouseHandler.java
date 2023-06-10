@@ -6,7 +6,6 @@ import java.awt.event.MouseMotionListener;
 
 public class MouseHandler implements MouseMotionListener, MouseListener {
     public int X,Y;
-    public static boolean mouseClicked = false;
 
 
     @Override
@@ -16,16 +15,16 @@ public class MouseHandler implements MouseMotionListener, MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1){
-            mouseClicked = true;
-        }
+//        if (e.getButton() == MouseEvent.BUTTON1){
+//            mouseClicked = true;
+//        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1){
-            mouseClicked = false;
-        }
+//            if (e.getButton() == MouseEvent.BUTTON1){
+//                mouseClicked = false;
+//            }
     }
 
     @Override
