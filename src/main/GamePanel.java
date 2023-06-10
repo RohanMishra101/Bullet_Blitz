@@ -1,12 +1,10 @@
 package main;
 
-import Entity.Bullet;
 import Entity.Player;
 import main.Tile.TilesManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 
 public class GamePanel extends JPanel{
@@ -19,18 +17,29 @@ public class GamePanel extends JPanel{
     public final int screenHeight = tileSize*maxScreenRow;//768px tiles
 
 
-    // Creating Objects
 
+
+
+
+    // Creating Objects
     TilesManager tileN = new TilesManager(this);
     MouseHandler mouseHandler = new MouseHandler();
     KeyHandler KeyH = new KeyHandler(); //Object of KeyHandler class
     public Player player = new Player(this,KeyH,mouseHandler); //Object of Player class
 
-//    World settings
+
+
+
+    //World settings
     public final int maxWorldCol = 500;
     public final int maxWorldRow = 500;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize + maxWorldRow;
+
+
+
+
+
     GamePanel(){
         setPanelSize();
         this.setBackground(Color.black);
@@ -45,12 +54,6 @@ public class GamePanel extends JPanel{
     }
     public void updateGame(){//Here goes every logic of the game
         player.update();
-
-//        if(MouseHandler.mouseClicked){
-//            bullets.add(bullet);
-////            player.shoot();
-//        }
-
     }
     @Override
     protected void paintComponent(Graphics g) {
@@ -60,9 +63,6 @@ public class GamePanel extends JPanel{
         tileN.draw(g2);
         player.draw(g2);
 
-//        if (mouseHandler.mouseClicked){
-//            bullet.render(g2);
-//        }
     }
 }
 

@@ -88,6 +88,10 @@ public class TilesManager {
         }
 
     }
+    public void loadPlanet(){
+        
+    }
+
     public void draw(Graphics2D g2){
 
         int worldCol = 0;
@@ -108,7 +112,7 @@ public class TilesManager {
                     worldY - (gp.tileSize*4)< gp.player.posY + gp.player.screenY) {
 
                 g2.drawImage(tilesBG[tileNum].image,screenX,screenY,gp.tileSize, gp.tileSize, null);
-
+//                g2.drawImage();
             }
             worldCol++;
 
@@ -135,6 +139,9 @@ public class TilesManager {
 //            e.printStackTrace();
             System.out.println("World not found");
         }
+    }
+
+    public void setPlanet(){
 
     }
 
