@@ -8,8 +8,8 @@ public class Game implements Runnable {
     private GameFrame gameFrame;
     private GamePanel gamePanel;
     private Thread gameLoopThread;
-    private final int FPS_SET = 120;
-    private final int UPS_SET = 200;
+    private final int FPS_SET = 165;
+    private final int UPS_SET = 300;
     public Game(){
         gamePanel = new GamePanel();
         gameFrame = new GameFrame(gamePanel);

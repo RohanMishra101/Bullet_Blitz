@@ -39,7 +39,8 @@ public class MouseHandler implements MouseMotionListener, MouseListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        X = e.getX();
+        Y = e.getY();
     }
 
     @Override

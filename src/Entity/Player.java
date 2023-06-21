@@ -31,6 +31,8 @@ public class Player extends Entity {
         this.KeyH = KeyH;
         this.MouseH = MouseH;
 
+        solidArea = new Rectangle(10,10,32,32);
+
 //        screenX = gp.screenWidth/2 - gp.tileSize/2;
         screenX = gp.screenWidth/2;
 //        screenY = gp.screenHeight/2 - gp.tileSize/2;
@@ -71,58 +73,57 @@ public class Player extends Entity {
         motion = "still";
     }
     public void update(){
-        //Getting mouse position
+        // Getting mouse position
         int centerX = screenX + (gp.tileSize / 2);
         int centerY = screenY + (gp.tileSize / 2);
         double dx = MouseH.X - centerX;
         double dy = MouseH.Y - centerY;
-        angle = Math.atan2(dy,dx);
+        angle = Math.atan2(dy, dx);
 
-
-        //Player New Movement design
-        //Movement should be based on mouse position
-        //4 movement keys
-        //W for moving player to the mouse position
-        //S for moving player to the opposite of mouse position
-        //A for Clockwise spinning the player based on the mouse position
-        //D for Anti-Clockwise spinning the player based on mouse position
-        if(KeyH.up != null && KeyH.up){
+        // Player movement logic
+        if (KeyH.up != null && KeyH.up && !collisionOn) {
             motion = "move";
             double movX = Math.cos(angle);
             double movY = Math.sin(angle);
-
             double magnitude = Math.sqrt(movX * movX + movY * movY);
-            if(magnitude!=0){
-                movX /= magnitude;
-                movY /= magnitude;
-            }
 
-
-            movX *= speed;
-            movY *= speed;
-
-            posX+= movX;
-            posY+= movY;
-        } else if (KeyH.down != null && KeyH.down) {
-            motion = "move";
-            double movX = Math.cos(angle);
-            double movY = Math.sin(angle);
-
-            double magnitude = Math.sqrt(movX * movX + movY * movY);
             if (magnitude != 0) {
                 movX /= magnitude;
                 movY /= magnitude;
             }
 
+            movX *= speed;
+            movY *= speed;
+
+            posX += movX;
+            posY += movY;
+        } else if (KeyH.down != null && KeyH.down && !collisionOn) {
+            motion = "move";
+            double movX = -Math.cos(angle);
+            double movY = -Math.sin(angle);
+            double magnitude = Math.sqrt(movX * movX + movY * movY);
+
+            if (magnitude != 0) {
+                movX /= magnitude;
+                movY /= magnitude;
+            }
 
             movX *= backSpeed;
             movY *= backSpeed;
 
-            posX -= movX;
-            posY -= movY;
+            posX += movX;
+            posY += movY;
         } else {
             motion = "still";
         }
+        //Collisio Check
+        collisionOn = false;
+        gp.checker.CheckTile(this);
+        //Passing player class as the entity as it is a subclass of the Entity class
+
+
+        //If collison is false player can move if not then the player is not allowed to move
+
 
 
         //Bullet mechanism

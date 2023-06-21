@@ -11,17 +11,17 @@ import java.util.Random;
 public class TilesManager {
     Random randNum = new Random();
     GamePanel gp;
-    Tiles[] tilesBG;
+    public Tiles[] tilesBG;
 
     String filePath = "res/maps/WorldMapTest.txt";
 
-    int mapTileNum[][];
+    public int[][] mapTileNum;
 
 
     public TilesManager(GamePanel gp){
         this.gp = gp;
 
-        tilesBG = new Tiles[10];
+        tilesBG = new Tiles[8];
 
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
         File file = new File(filePath);
@@ -37,27 +37,29 @@ public class TilesManager {
     public void getTileImg(){
         try {
             tilesBG[0] = new Tiles();
-            tilesBG[0].image = ImageIO.read(
-                    Objects.requireNonNull(getClass().
-                            getResourceAsStream("/Tiles/SpaceBackGround.png")));
+            tilesBG[0].image = ImageIO.read(new File("res/Tiles/SpaceBackGround.png"));
 
             tilesBG[1] = new Tiles();
-            tilesBG[1].image = ImageIO.read(
-                    Objects.requireNonNull(getClass().
-                            getResourceAsStream("/Tiles/SpaceBackGround1.png")));
+            tilesBG[1].image = ImageIO.read(new File("res/Tiles/SpaceBackGround1.png"));
 
             tilesBG[2] = new Tiles();
-            tilesBG[2].image = ImageIO.read(
-                    Objects.requireNonNull(getClass().
-                            getResourceAsStream("/Tiles/SpaceBackGround2.png")));
+            tilesBG[2].image = ImageIO.read(new File("res/Tiles/SpaceBackGround2.png"));
+
             tilesBG[3] = new Tiles();
-            tilesBG[3].image = ImageIO.read(
-                    Objects.requireNonNull(getClass().
-                            getResourceAsStream("/Tiles/SpaceBackGround3.png")));
+            tilesBG[3].image = ImageIO.read(new File("res/Tiles/SpaceBackGround3.png"));
+
             tilesBG[4] = new Tiles();
-            tilesBG[4].image = ImageIO.read(
-                    Objects.requireNonNull(getClass().
-                            getResourceAsStream("/Tiles/BlankSpaceBackGround.png")));
+            tilesBG[4].image = ImageIO.read(new File("res/Tiles/BlankSpaceBackGround.png"));
+
+            tilesBG[5] = new Tiles();
+            tilesBG[5].image = ImageIO.read(new File("res/Tiles/SpaceBackGround4.png"));
+
+            tilesBG[6] = new Tiles();
+            tilesBG[6].image = ImageIO.read(new File("res/Tiles/SpaceBackGround5.png"));
+
+            tilesBG[7] = new Tiles();
+            tilesBG[7].image = ImageIO.read(new File("res/Tiles/CollisionBlankSpace.png"));
+            tilesBG[7].collison = true;
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -88,10 +90,6 @@ public class TilesManager {
         }
 
     }
-    public void loadPlanet(){
-        
-    }
-
     public void draw(Graphics2D g2){
 
         int worldCol = 0;
@@ -125,27 +123,70 @@ public class TilesManager {
     }
 
 
-    public void setMap(){
+//    public void setMap(){
+//        try {
+//            FileWriter writer = new FileWriter("res/maps/WorldMapTest.txt");
+//            for (int i=0;i<gp.maxWorldRow;i++){
+//                for(int j = 0; j< gp.maxWorldCol;j++){
+//                    if(i <= 5 || j <= 5){
+//                        writer.write(randNum.nextInt(4,7) + " ");
+//                    } else if (i > gp.maxScreenCol-5 || j >= gp.maxScreenRow-5) {
+//                        writer.write(randNum.nextInt(4,7) + " ");
+//                    }
+//                    writer.write(randNum.nextInt(5) + " ");
+//
+//                }
+//                writer.write(System.lineSeparator());
+//            }
+//            writer.close();
+//        }catch (IOException e){
+////            e.printStackTrace();
+//            System.out.println("World not found");
+//        }
+//    }
+    public void setMap() {
         try {
             FileWriter writer = new FileWriter("res/maps/WorldMapTest.txt");
-            for (int i=0;i<gp.maxWorldRow;i++){
-                for(int j = 0; j< gp.maxWorldCol;j++){
-                    writer.write(randNum.nextInt(5) + " ");
+
+            int[][] mapData = new int[gp.maxWorldRow][gp.maxWorldCol];
+
+            for (int i = 0; i < gp.maxWorldRow; i++) {
+                for (int j = 0; j < gp.maxWorldCol; j++) {
+                    if (i == 0 || i == gp.maxWorldRow - 1 || j == 0 || j == gp.maxWorldCol - 1) {
+                        mapData[i][j] = 7;
+                    } else if (i <= 50 || j <= 50 || i > gp.maxWorldRow - 6 || j >= gp.maxWorldCol - 6) {
+                        int rand = randNum.nextInt(4, 10);
+                        if (rand >= 6) {
+                            mapData[i][j] = 4;
+                        } else {
+                            mapData[i][j] = rand;
+                        }
+                    } else {
+                        int rand = randNum.nextInt(10);
+                        if (rand >= 7) {
+                            mapData[i][j] = 4;
+                        } else {
+                            mapData[i][j] = randNum.nextInt(7);
+                        }
+                    }
                 }
-                writer.write(System.lineSeparator());
+                writer.write(arrayToString(mapData[i]) + System.lineSeparator());
             }
+
             writer.close();
-        }catch (IOException e){
-//            e.printStackTrace();
+        } catch (IOException e) {
             System.out.println("World not found");
         }
     }
 
-    public void setPlanet(){
-
+    private String arrayToString(int[] array) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < array.length; i++) {
+            sb.append(array[i]);
+            if (i < array.length - 1) {
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
     }
-
-
-
-
 }

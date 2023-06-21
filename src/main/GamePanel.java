@@ -18,21 +18,18 @@ public class GamePanel extends JPanel{
 
 
 
-
-
-
     // Creating Objects
     TilesManager tileN = new TilesManager(this);
     MouseHandler mouseHandler = new MouseHandler();
     KeyHandler KeyH = new KeyHandler(); //Object of KeyHandler class
     public Player player = new Player(this,KeyH,mouseHandler); //Object of Player class
 
-
-
+    //Collision
+    public CollisonChecker checker = new CollisonChecker(this);
 
     //World settings
-    public final int maxWorldCol = 500;
-    public final int maxWorldRow = 500;
+    public final int maxWorldCol = 1100;
+    public final int maxWorldRow = 1100;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize + maxWorldRow;
 
