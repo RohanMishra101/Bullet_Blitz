@@ -24,6 +24,8 @@ public class GamePanel extends JPanel{
     KeyHandler KeyH = new KeyHandler(); //Object of KeyHandler class
     public Player player = new Player(this,KeyH,mouseHandler); //Object of Player class
 
+    //UI
+    public Ui  ui = new Ui(this);
     //Collision
     public CollisonChecker checker = new CollisonChecker(this);
 
@@ -32,7 +34,6 @@ public class GamePanel extends JPanel{
     public final int maxWorldRow = 1100;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize + maxWorldRow;
-
 
 
 
@@ -57,8 +58,16 @@ public class GamePanel extends JPanel{
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g;
+        //Tiles
         tileN.draw(g2);
+
+        //Player
         player.draw(g2);
+
+
+        //Will use later
+        //UI
+//        ui.draw(g2);
 
     }
 }

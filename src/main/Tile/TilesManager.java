@@ -1,9 +1,11 @@
 package main.Tile;
 
 import main.GamePanel;
+import main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Objects;
 import java.util.Random;
@@ -35,35 +37,28 @@ public class TilesManager {
 
     }
     public void getTileImg(){
+        setUp(0,"SpaceBackGround",false);
+        setUp(1,"SpaceBackGround1",false);
+        setUp(2,"SpaceBackGround2",false);
+        setUp(3,"SpaceBackGround3",false);
+        setUp(4,"BlankSpaceBackGround",false);
+        setUp(5,"SpaceBackGround4",false);
+        setUp(6,"SpaceBackGround5",false);
+        setUp(7,"CollisionBlankSpace",true);
+    }
+
+    public void setUp(int index, String imageName, boolean collision){
+        UtilityTool uTool = new UtilityTool();
         try {
-            tilesBG[0] = new Tiles();
-            tilesBG[0].image = ImageIO.read(new File("res/Tiles/SpaceBackGround.png"));
-
-            tilesBG[1] = new Tiles();
-            tilesBG[1].image = ImageIO.read(new File("res/Tiles/SpaceBackGround1.png"));
-
-            tilesBG[2] = new Tiles();
-            tilesBG[2].image = ImageIO.read(new File("res/Tiles/SpaceBackGround2.png"));
-
-            tilesBG[3] = new Tiles();
-            tilesBG[3].image = ImageIO.read(new File("res/Tiles/SpaceBackGround3.png"));
-
-            tilesBG[4] = new Tiles();
-            tilesBG[4].image = ImageIO.read(new File("res/Tiles/BlankSpaceBackGround.png"));
-
-            tilesBG[5] = new Tiles();
-            tilesBG[5].image = ImageIO.read(new File("res/Tiles/SpaceBackGround4.png"));
-
-            tilesBG[6] = new Tiles();
-            tilesBG[6].image = ImageIO.read(new File("res/Tiles/SpaceBackGround5.png"));
-
-            tilesBG[7] = new Tiles();
-            tilesBG[7].image = ImageIO.read(new File("res/Tiles/CollisionBlankSpace.png"));
-            tilesBG[7].collison = true;
+            tilesBG[index] = new Tiles();
+            tilesBG[index].image = ImageIO.read(new File("res/Tiles/"+ imageName + ".png"));
+            tilesBG[index].image = uTool.scaleImage(tilesBG[index].image,gp.tileSize,gp.tileSize);
+            tilesBG[index].collison = collision;
         }catch (IOException e){
             e.printStackTrace();
         }
     }
+
     public void loadMap(){
         try {
             FileInputStream fis = new FileInputStream("res/maps/WorldMapTest.txt");
@@ -109,7 +104,7 @@ public class TilesManager {
                     worldY + (gp.tileSize*4)> gp.player.posY - gp.player.screenY &&
                     worldY - (gp.tileSize*4)< gp.player.posY + gp.player.screenY) {
 
-                g2.drawImage(tilesBG[tileNum].image,screenX,screenY,gp.tileSize, gp.tileSize, null);
+                g2.drawImage(tilesBG[tileNum].image,screenX,screenY,null);
 //                g2.drawImage();
             }
             worldCol++;
